@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tradingbygold.github.io/xm-rebate-calculator/sitemap.xml
