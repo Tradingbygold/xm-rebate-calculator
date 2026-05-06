@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator Rebate XM (Accurate)</title>
+<meta name="description" content="Kalkulator rebate XM akurat berdasarkan account type dan instrument.">
+<style>
+body{font-family:Arial;background:#0b1e3a;color:#fff;margin:0}
+.container{max-width:1000px;margin:auto;padding:20px}
+.card{background:#12294d;padding:25px;border-radius:16px;margin-bottom:20px;border:1px solid #1f3b6b}
+h1{margin-bottom:5px}
+select,input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:none;background:#0f2342;color:#fff}
+button{padding:12px 20px;border-radius:10px;border:none;background:#f5c542;color:#000;font-weight:bold;cursor:pointer}
+.result-box{background:#0f2342;padding:25px;border-radius:16px;text-align:center}
+.big{font-size:40px;color:#f5c542;font-weight:bold}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.small-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;margin-top:20px}
+.stat{background:#0f2342;padding:15px;border-radius:12px;text-align:center}
+.note{font-size:12px;color:#9fb3d9;margin-top:10px}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="grid">
+
+<div class="card">
+<h1>Kalkulator Rebate XM</h1>
+<p>Gunakan rate sesuai account & pair (lebih akurat)</p>
+
+<label>Account Type</label>
+<select id="account" onchange="updatePairs()">
+<option value="standard">Standard</option>
+<option value="micro">Micro</option>
+<option value="ultra">Ultra Low</option>
+</select>
+
+<label>Instrument</label>
+<select id="pair"></select>
+
+<label>Lot</label>
+<input type="number" id="lot" value="1" step="0.01" oninput="hitung()">
+
+<p class="note">* Micro akan otomatis dikonversi ke standard lot</p>
+
+</div>
+
+<div class="result-box">
+<p>Estimated Rebate</p>
+<div class="big" id="total">$0.00</div>
+<p id="perlot">Rebate per lot: $0</p>
+</div>
+
+</div>
+
+<div class="small-grid">
+<div class="stat">
+<p>Harian</p>
+<h2 id="daily">$0</h2>
+</div>
+<div class="stat">
+<p>Bulanan</p>
+<h2 id="monthly">$0</h2>
+</div>
+<div class="stat">
+<p>Tahunan</p>
+<h2 id="yearly">$0</h2>
+</div>
+</div>
+
+</div>
+
+<script>
+const rates = {
+  standard: {
+    "EURUSD": 7.6,
+    "GBPUSD": 8.5,
+    "GOLD": 14.5,
+    "BTCUSD": 17
+  },
+  micro: {
+    "EURUSD": 0.07,
+    "GBPUSD": 0.08,
+    "GOLD": 0.145,
+    "BTCUSD": 17
+  },
+  ultra: {
+    "EURUSD": 2.97,
+    "GBPUSD": 2.97,
+    "GOLD": 6.8,
+    "BTCUSD": 6.7
+  }
+};
+
+function updatePairs(){
+  const acc = document.getElementById('account').value;
+  const pairSelect = document.getElementById('pair');
+  pairSelect.innerHTML = '';
+
+  Object.keys(rates[acc]).forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p;
+    opt.textContent = p;
+    pairSelect.appendChild(opt);
+  });
+
+  hitung();
+}
+
+function hitung(){
+  const lot = parseFloat(document.getElementById('lot').value)||0;
+  const acc = document.getElementById('account').value;
+  const pair = document.getElementById('pair').value;
+
+  let rebatePerLot = rates[acc][pair] || 0;
+  let total = 0;
+
+  if(acc === 'micro'){
+    // convert micro to standard
+    total = lot * 100 * rebatePerLot;
+    rebatePerLot = rebatePerLot * 100;
+  } else {
+    total = lot * rebatePerLot;
+  }
+
+  document.getElementById('total').innerHTML = '$' + total.toFixed(2);
+  document.getElementById('perlot').innerHTML = 'Rebate per lot: $' + rebatePerLot.toFixed(2);
+
+  document.getElementById('daily').innerHTML = '$' + total.toFixed(2);
+  document.getElementById('monthly').innerHTML = '$' + (total*22).toFixed(2);
+  document.getElementById('yearly').innerHTML = '$' + (total*264).toFixed(2);
+}
+
+updatePairs();
+</script>
+
+</body>
+</html>
