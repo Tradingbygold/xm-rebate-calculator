@@ -1,73 +1,184 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalkulator Rebate XM (Accurate)</title>
-<meta name="description" content="Kalkulator rebate XM akurat berdasarkan account type dan instrument.">
+
+<title>XM Rebate Calculator – Calculate XM Cashback per Lot</title>
+
+<meta name="description" content="XM Rebate Calculator to estimate your trading cashback. Calculate XM rebate per lot for Forex, Gold, and Crypto instantly.">
+
 <style>
-body{font-family:Arial;background:#0b1e3a;color:#fff;margin:0}
-.container{max-width:1000px;margin:auto;padding:20px}
-.card{background:#12294d;padding:25px;border-radius:16px;margin-bottom:20px;border:1px solid #1f3b6b}
-h1{margin-bottom:5px}
-select,input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:none;background:#0f2342;color:#fff}
-button{padding:12px 20px;border-radius:10px;border:none;background:#f5c542;color:#000;font-weight:bold;cursor:pointer}
-.result-box{background:#0f2342;padding:25px;border-radius:16px;text-align:center}
-.big{font-size:40px;color:#f5c542;font-weight:bold}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.small-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;margin-top:20px}
-.stat{background:#0f2342;padding:15px;border-radius:12px;text-align:center}
-.note{font-size:12px;color:#9fb3d9;margin-top:10px}
+body {
+  font-family: Arial;
+  background: #0b1e3a;
+  color: #fff;
+  margin: 0;
+}
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+.card {
+  background: #12294d;
+  padding: 25px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #1f3b6b;
+}
+h1 {
+  text-align: center;
+}
+select, input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #0f2342;
+  color: white;
+}
+button {
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-primary {
+  background: #f5c542;
+  color: #000;
+}
+.btn-secondary {
+  background: #1f3b6b;
+  color: #fff;
+}
+.result {
+  text-align: center;
+}
+.big {
+  font-size: 42px;
+  color: #f5c542;
+  font-weight: bold;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+}
+.stat {
+  background: #0f2342;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+a {
+  text-decoration: none;
+}
 </style>
 </head>
 
 <body>
 <div class="container">
 
+<h1>XM Rebate Calculator</h1>
+<p style="text-align:center;">
+Calculate your XM cashback and earn up to <b>$3000+ per year</b>
+</p>
+
 <div class="grid">
 
 <div class="card">
-<h1>Kalkulator Rebate XM</h1>
-<p>Gunakan rate sesuai account & pair (lebih akurat)</p>
 
 <label>Account Type</label>
 <select id="account" onchange="updatePairs()">
 <option value="standard">Standard</option>
-<option value="micro">Micro</option>
 <option value="ultra">Ultra Low</option>
+<option value="micro">Micro</option>
 </select>
 
-<label>Instrument</label>
+<label>Trading Pair</label>
 <select id="pair"></select>
 
-<label>Lot</label>
+<label>Lot Size</label>
 <input type="number" id="lot" value="1" step="0.01" oninput="hitung()">
 
-<p class="note">* Micro akan otomatis dikonversi ke standard lot</p>
+<p style="font-size:12px;opacity:0.7;">
+* Micro account: 1 lot = 100 micro lots
+</p>
+
+<button class="btn-primary" onclick="hitung()">Calculate Rebate</button>
 
 </div>
 
-<div class="result-box">
+<div class="card result">
+
 <p>Estimated Rebate</p>
-<div class="big" id="total">$0.00</div>
-<p id="perlot">Rebate per lot: $0</p>
-</div>
+<div class="big" id="total">$0</div>
+<p id="perlot"></p>
+
+<a href="https://tradingbygold.com/rebate-xm/calculator" target="_blank">
+<button class="btn-primary">Claim XM Rebate</button>
+</a>
+
+<a href="https://tradingbygold.com/rebate-xm/calculator" target="_blank">
+<button class="btn-secondary">Open XM Account</button>
+</a>
 
 </div>
 
-<div class="small-grid">
+</div>
+
+<div class="stats">
 <div class="stat">
-<p>Harian</p>
+<p>Daily</p>
 <h2 id="daily">$0</h2>
 </div>
 <div class="stat">
-<p>Bulanan</p>
+<p>Monthly</p>
 <h2 id="monthly">$0</h2>
 </div>
 <div class="stat">
-<p>Tahunan</p>
+<p>Yearly</p>
 <h2 id="yearly">$0</h2>
 </div>
+</div>
+
+<!-- SEO CONTENT -->
+<div class="card">
+<h2>What is XM Rebate?</h2>
+<p>
+XM rebate is a cashback program that returns part of your trading cost for every lot traded. 
+The more you trade, the more cashback you earn. This is especially beneficial for scalpers and active traders.
+</p>
+
+<h2>How to Calculate XM Rebate</h2>
+<p>
+XM rebate is calculated based on your trading volume (lot size) and rebate rate per lot. 
+Use this calculator to estimate your daily, monthly, and yearly rebate instantly.
+</p>
+
+<h2>Benefits of XM Cashback</h2>
+<ul>
+<li>Increase your trading profit</li>
+<li>Reduce spread cost</li>
+<li>Suitable for all traders</li>
+</ul>
+
+<p>
+👉 Learn more: 
+<a href="https://tradingbygold.com/rebate-xm/calculator" target="_blank">
+XM Rebate Guide
+</a>
+</p>
+
 </div>
 
 </div>
@@ -75,62 +186,65 @@ button{padding:12px 20px;border-radius:10px;border:none;background:#f5c542;color
 <script>
 const rates = {
   standard: {
-    "EURUSD": 7.6,
-    "GBPUSD": 8.5,
-    "GOLD": 14.5,
-    "BTCUSD": 17
-  },
-  micro: {
-    "EURUSD": 0.07,
-    "GBPUSD": 0.08,
-    "GOLD": 0.145,
-    "BTCUSD": 17
+    EURUSD: 8.1,
+    GBPUSD: 9.0,
+    USDJPY: 8.1,
+    XAUUSD: 15,
+    BTCUSD: 17
   },
   ultra: {
-    "EURUSD": 2.97,
-    "GBPUSD": 2.97,
-    "GOLD": 6.8,
-    "BTCUSD": 6.7
+    EURUSD: 3.15,
+    GBPUSD: 3.15,
+    USDJPY: 2.7,
+    XAUUSD: 7.2,
+    BTCUSD: 7.1
+  },
+  micro: {
+    EURUSD: 0.081,
+    GBPUSD: 0.09,
+    USDJPY: 0.081,
+    XAUUSD: 0.15,
+    BTCUSD: 0.17
   }
 };
 
 function updatePairs(){
-  const acc = document.getElementById('account').value;
-  const pairSelect = document.getElementById('pair');
-  pairSelect.innerHTML = '';
+  const acc = document.getElementById("account").value;
+  const pairSelect = document.getElementById("pair");
+  pairSelect.innerHTML = "";
 
-  Object.keys(rates[acc]).forEach(p => {
-    const opt = document.createElement('option');
+  Object.keys(rates[acc]).forEach(p=>{
+    let opt = document.createElement("option");
     opt.value = p;
     opt.textContent = p;
     pairSelect.appendChild(opt);
   });
 
+  pairSelect.value = "XAUUSD";
   hitung();
 }
 
 function hitung(){
-  const lot = parseFloat(document.getElementById('lot').value)||0;
-  const acc = document.getElementById('account').value;
-  const pair = document.getElementById('pair').value;
+  const acc = document.getElementById("account").value;
+  const pair = document.getElementById("pair").value;
+  const lot = parseFloat(document.getElementById("lot").value)||0;
 
-  let rebatePerLot = rates[acc][pair] || 0;
-  let total = 0;
+  let rebate = rates[acc][pair];
+  let total;
 
-  if(acc === 'micro'){
-    // convert micro to standard
-    total = lot * 100 * rebatePerLot;
-    rebatePerLot = rebatePerLot * 100;
+  if(acc === "micro"){
+    total = lot * rebate * 100;
+    rebate = rebate * 100;
   } else {
-    total = lot * rebatePerLot;
+    total = lot * rebate;
   }
 
-  document.getElementById('total').innerHTML = '$' + total.toFixed(2);
-  document.getElementById('perlot').innerHTML = 'Rebate per lot: $' + rebatePerLot.toFixed(2);
+  document.getElementById("total").innerHTML = "$" + total.toFixed(2);
+  document.getElementById("perlot").innerHTML = "Rebate per lot: $" + rebate.toFixed(2);
 
-  document.getElementById('daily').innerHTML = '$' + total.toFixed(2);
-  document.getElementById('monthly').innerHTML = '$' + (total*22).toFixed(2);
-  document.getElementById('yearly').innerHTML = '$' + (total*264).toFixed(2);
+  document.getElementById("daily").innerHTML = "$" + total.toFixed(2);
+  document.getElementById("monthly").innerHTML = "$" + (total*22).toFixed(2);
+  document.getElementById("yearly").innerHTML = "$" + (total*264).toFixed(2);
 }
 
 updatePairs();
